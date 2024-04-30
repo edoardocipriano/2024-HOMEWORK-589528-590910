@@ -170,7 +170,7 @@ public class Stanza {
 	 */
 	public boolean removeAttrezzo(Attrezzo attrezzo) {
 		if(this.numeroAttrezzi > 0 && this.attrezzi[numeroAttrezzi-1].getNome().equals(attrezzo.getNome())) {
-			Attrezzo aux = this.attrezzi[numeroAttrezzi-1];
+			//Attrezzo aux = this.attrezzi[numeroAttrezzi-1];
 			this.attrezzi[numeroAttrezzi-1] = null;
 			this.numeroAttrezzi -= 1;
 			return true;
@@ -197,5 +197,13 @@ public class Stanza {
 	    	direzioni[i] = this.direzioni[i];
 	    return direzioni;
     }
-
+	
+	public int getNumeroAttrezzi() {
+		return this.numeroAttrezzi;
+	}
+	
+	public void setNumeroAttrezzi(int numeroAttrezzi) {
+		this.numeroAttrezzi = numeroAttrezzi;
+	}
+	
 }

@@ -1,7 +1,6 @@
 package it.uniroma3.diadia;
 
 import it.uniroma3.diadia.ambienti.*;
-import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.giocatore.*;
 
 /**
@@ -60,5 +59,9 @@ public class Partita {
 	 */
 	public void setFinita() {
 		this.finita = true;
+	}
+	
+	public boolean giocatoreIsVivo() {
+		return this.giocatore.getCfu() > 0;
 	}
 }
