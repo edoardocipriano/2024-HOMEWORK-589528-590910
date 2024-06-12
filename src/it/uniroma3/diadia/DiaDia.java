@@ -1,7 +1,11 @@
 package it.uniroma3.diadia;
 
-import it.uniroma3.diadia.comandi.Comando;
-import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.comandi.AbstractComando;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
 
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
@@ -30,12 +34,17 @@ public class DiaDia {
 	private Partita partita;
 	private IO io;
 
+	public DiaDia(IO io, Labirinto l) throws FileNotFoundException, FormatoFileNonValidoException {
+		this.partita = new Partita(l);
+		this.io = io;
+	}
+	
 	public DiaDia(IO io) {
 		this.partita = new Partita();
 		this.io = io;
 	}
 
-	public void gioca() {
+	public void gioca() throws Exception {
 		String istruzione; 
 
 		io.mostraMessaggio(MESSAGGIO_BENVENUTO);		
@@ -49,10 +58,11 @@ public class DiaDia {
 	 * Processa una istruzione 
 	 *
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
+	 * @throws Exception 
 	 */
-	private boolean processaIstruzione(String istruzione) {
-		Comando comandoDaEseguire;
-		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica(io);
+	private boolean processaIstruzione(String istruzione) throws Exception {
+		AbstractComando comandoDaEseguire;
+		FabbricaDiComandiRiflessiva factory = new FabbricaDiComandiRiflessiva(io);
 		
 		comandoDaEseguire = factory.costruisciComando(istruzione);
 		comandoDaEseguire.esegui(this.partita);
@@ -64,9 +74,12 @@ public class DiaDia {
 		return this.partita.isFinita();
 	}   
 
-	public static void main(String[] argc) {
-		IO io = new IOConsole();
-		DiaDia gioco = new DiaDia(io);
+	public static void main(String[] argc) throws Exception {
+		Scanner scannerDiLinee = new Scanner(System.in);
+		IO io = new IOConsole(scannerDiLinee);
+		Labirinto labirinto = Labirinto.newBuilder("labirinto5.txt").getLabirinto();
+		DiaDia gioco = new DiaDia(io,labirinto);
 		gioco.gioca();
+		
 	}
 }

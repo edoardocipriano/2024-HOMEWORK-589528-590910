@@ -13,12 +13,12 @@ public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi {
 	}
 	
 	@Override
-	public Comando costruisciComando(String istruzione) {
+	public AbstractComando costruisciComando(String istruzione) {
 		@SuppressWarnings("resource")
 		Scanner scannerDiParole = new Scanner(istruzione);
 		String nomeComando = null;
 		String parametro = null;
-		Comando comando = null;
+		AbstractComando comando = null;
 		
 		if (scannerDiParole.hasNext())
 			nomeComando = scannerDiParole.next(); // prima parola: nome del comando
@@ -27,21 +27,22 @@ public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi {
 			parametro = scannerDiParole.next(); // seconda parola: eventuale parametro
 		
 		if (nomeComando == null)
-			comando = new ComandoNonValido(io);
+			comando = new ComandoNonValido();
 		else if (nomeComando.equals("vai"))
-			comando = new ComandoVai(io);
+			comando = new ComandoVai();
 		else if (nomeComando.equals("prendi"))
-			comando = new ComandoPrendi(io);
+			comando = new ComandoPrendi();
 		else if (nomeComando.equals("posa"))
-			comando = new ComandoPosa(io);
+			comando = new ComandoPosa();
 		else if (nomeComando.equals("aiuto"))
-			comando = new ComandoAiuto(io);
+			comando = new ComandoAiuto();
 		else if (nomeComando.equals("fine"))
-			comando = new ComandoFine(io);
+			comando = new ComandoFine();
 		else if (nomeComando.equals("guarda"))
-			comando = new ComandoGuarda(io);
-		else comando = new ComandoNonValido(io);
+			comando = new ComandoGuarda();
+		else comando = new ComandoNonValido();
 		comando.setParametro(parametro);
+		comando.setIO(io);
 		return comando;
 	}
 }

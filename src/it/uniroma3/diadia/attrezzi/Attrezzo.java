@@ -40,6 +40,10 @@ public class Attrezzo {
 	public int getPeso() {
 		return this.peso;
 	}
+	
+	public void setPeso(int peso) {
+		this.peso = peso;
+	}
 
 	/**
 	 * Restituisce una rappresentazione stringa di questo attrezzo
@@ -47,6 +51,15 @@ public class Attrezzo {
 	 */
 	public String toString() {
 		return this.getNome()+" ("+this.getPeso()+"kg)";
+	}
+	
+	public boolean equals(Object o) {
+		Attrezzo that = (Attrezzo)o;
+		return this.getNome().equals(that.getNome());
+	}
+	
+	public int hashCode() {
+		return this.getNome().hashCode();
 	}
 
 }

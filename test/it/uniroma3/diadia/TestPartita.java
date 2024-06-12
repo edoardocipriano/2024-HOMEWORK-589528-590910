@@ -1,8 +1,10 @@
 package it.uniroma3.diadia;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 
+import it.uniroma3.diadia.ambienti.Direzione;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 public class TestPartita {
@@ -17,7 +19,7 @@ public class TestPartita {
 	@Test
 	public void testVintaConStanzaVincente() {
 		Stanza atrio = p.getStanzaCorrente();
-		Stanza biblioteca = atrio.getStanzaAdiacente("nord");
+		Stanza biblioteca = atrio.getStanzaAdiacente(Direzione.valueOf("NORD"));
 		p.setStanzaCorrente(biblioteca);
 		assertTrue(p.vinta());
 	}
@@ -25,7 +27,7 @@ public class TestPartita {
 	@Test
 	public void testVintaConAltraStanzaNonVincente() {
 		Stanza atrio = p.getStanzaCorrente();
-		Stanza aulaN11 = atrio.getStanzaAdiacente("est");
+		Stanza aulaN11 = atrio.getStanzaAdiacente(Direzione.valueOf("EST"));
 		p.setStanzaCorrente(aulaN11);
 		assertFalse(p.vinta());
 	}
@@ -47,7 +49,7 @@ public class TestPartita {
 	@Test
 	public void testIsFinitaSoloStanzaVincente() {
 		Stanza atrio = p.getStanzaCorrente();
-		Stanza biblioteca = atrio.getStanzaAdiacente("nord");
+		Stanza biblioteca = atrio.getStanzaAdiacente(Direzione.valueOf("NORD"));
 		p.setStanzaCorrente(biblioteca);
 		assertTrue(p.isFinita());
 	}

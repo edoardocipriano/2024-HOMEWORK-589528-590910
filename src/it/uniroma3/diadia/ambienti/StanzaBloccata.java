@@ -4,17 +4,17 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class StanzaBloccata extends Stanza {
 
-	private String direzioneBloccata;
+	private Direzione direzioneBloccata;
 	private String attrezzoSblocca;
 	
-	public StanzaBloccata(String nome,String direzione,String attrezzo) {
+	public StanzaBloccata(String nome,Direzione direzione,String attrezzo) {
 		super(nome);
 		this.direzioneBloccata = direzione;
 		this.attrezzoSblocca = attrezzo;
 	}
 	
 	@Override
-	public Stanza getStanzaAdiacente(String dir) {
+	public Stanza getStanzaAdiacente(Direzione dir) {
 		if(!this.hasAttrezzo(attrezzoSblocca)&&direzioneBloccata.equals(dir))
 			return this;
 		else
@@ -28,7 +28,7 @@ public class StanzaBloccata extends Stanza {
 	    	risultato.append(this.getNome());
 	    	risultato.append("\nDirezione bloccata: "+this.direzioneBloccata);
 	    	risultato.append("\nUscite: ");
-	    	for (String direzione : this.getDirezioni()) 
+	    	for (Direzione direzione : this.getDirezioni()) 
 	    		if (direzione!=null)
 	    			risultato.append(" " + direzione);
 	    	risultato.append("\nAttrezzi nella stanza: ");

@@ -26,31 +26,31 @@ public class TestStanza {
 
 	@Test
 	public void testGetEdImpostaStanzaAdiacenteNord() {
-		stanza1.impostaStanzaAdiacente("nord",stanza2);
-		assertEquals(stanza2,stanza1.getStanzaAdiacente("nord"));
+		stanza1.impostaStanzaAdiacente(Direzione.valueOf("NORD"),stanza2);
+		assertEquals(stanza2,stanza1.getStanzaAdiacente(Direzione.valueOf("NORD")));
 	}
 	
 	@Test
 	public void testGetEdImpostaStanzaAdiacenteEst() {
-		stanza1.impostaStanzaAdiacente("est",stanza2);
-		assertEquals(stanza2,stanza1.getStanzaAdiacente("est"));
+		stanza1.impostaStanzaAdiacente(Direzione.valueOf("EST"),stanza2);
+		assertEquals(stanza2,stanza1.getStanzaAdiacente(Direzione.valueOf("EST")));
 	}
 	
 	@Test
 	public void testGetEdImpostaStanzaAdiacenteSud() {
-		stanza1.impostaStanzaAdiacente("sud",stanza2);
-		assertEquals(stanza2,stanza1.getStanzaAdiacente("sud"));
+		stanza1.impostaStanzaAdiacente(Direzione.valueOf("SUD"),stanza2);
+		assertEquals(stanza2,stanza1.getStanzaAdiacente(Direzione.valueOf("SUD")));
 	}
 	
 	@Test
 	public void testGetEdImpostaStanzaAdiacenteOvest() {
-		stanza1.impostaStanzaAdiacente("ovest", stanza2);
-		assertEquals(stanza2,stanza1.getStanzaAdiacente("ovest"));
+		stanza1.impostaStanzaAdiacente(Direzione.valueOf("OVEST"), stanza2);
+		assertEquals(stanza2,stanza1.getStanzaAdiacente(Direzione.valueOf("OVEST")));
 	}
 	
 	@Test
 	public void testGetEdImpostaStanzaAdiacenteNoDirezione() {
-		assertEquals(null,stanza1.getStanzaAdiacente("nord"));
+		assertEquals(null,stanza1.getStanzaAdiacente(Direzione.valueOf("NORD")));
 	}
 	
 	// TEST UNICI PER DUE METODI PERCHE' SAREBBERO TEST IDENTICI - FINE TEST

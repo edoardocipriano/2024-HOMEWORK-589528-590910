@@ -2,6 +2,8 @@ package it.uniroma3.diadia.comandi;
 
 import static org.junit.Assert.*;
 
+import java.util.Scanner;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,9 +21,9 @@ public class TestComandoPrendi {
 	@Before
 	public void setUp() {
 		this.partita = new Partita();
-		this.io = new IOConsole();
-		this.prendi = new ComandoPrendi(io);
-		this.io = new IOConsole();
+		this.io = new IOConsole(new Scanner(System.in));
+		this.prendi = new ComandoPrendi();
+		this.prendi.setIO(io);
 		Attrezzo scudo = new Attrezzo("scudo",2);
 		Attrezzo spada = new Attrezzo("spada",3);
 		this.partita.getStanzaCorrente().addAttrezzo(scudo);
@@ -44,7 +46,7 @@ public class TestComandoPrendi {
 	
 	@Test
 	public void testBorsaNonVuotaAttrezzoPresente() {
-		this.partita.getGiocatore().getBorsa().addAttrezzo(new Attrezzo("tavolino",4));
+		this.partita.getGiocatore().getBorsa().addAttrezzo(new Attrezzo("tavolino",1));
 		this.prendi.setParametro("spada");
 		this.prendi.esegui(partita);
 		assertTrue(this.partita.getGiocatore().getBorsa().hasAttrezzo("spada"));

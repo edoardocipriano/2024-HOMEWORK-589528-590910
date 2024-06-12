@@ -2,9 +2,22 @@ package it.uniroma3.diadia.giocatore;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+
 import org.junit.Test;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.attrezzi.ComparatorePerNome;
+import it.uniroma3.diadia.attrezzi.ComparatorePerPeso;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 
 public class TestBorsa {
 	
@@ -121,6 +134,144 @@ public class TestBorsa {
 		b.addAttrezzo(coltello);
 		b.addAttrezzo(bussola);
 		assertEquals(null,b.removeAttrezzo("Lanterna"));
+	}
+	
+	@Test
+	public void testGetContenutoOrdinatoPerPesoDueElementi() {
+		b.addAttrezzo(coltello);
+		b.addAttrezzo(bussola);
+		List<Attrezzo> lista = new ArrayList<>();
+		lista.add(bussola);
+		lista.add(coltello);
+		assertEquals(lista,b.getContenutoOrdinatoPerPeso());
+	}
+	
+	@Test
+	public void testGetContenutoOrdinatoPerPesoTreElementiPesoDiverso() {
+		b.addAttrezzo(coltello);
+		b.addAttrezzo(bussola);
+		b.addAttrezzo(spada);
+		List<Attrezzo> lista = new ArrayList<>();
+		lista.add(bussola);
+		lista.add(coltello);
+		lista.add(spada);
+		assertEquals(lista,b.getContenutoOrdinatoPerPeso());
+	}
+	
+	@Test
+	public void testGetContenutoOrdinatoPerPesoTreElementiDuePesoUguale() {
+		b.addAttrezzo(coltello);
+		b.addAttrezzo(lanterna);
+		b.addAttrezzo(bussola);
+		List<Attrezzo> lista = new ArrayList<>();
+		lista.add(bussola);
+		lista.add(coltello);
+		lista.add(lanterna);
+		assertEquals(lista,b.getContenutoOrdinatoPerPeso());
+	}
+	
+	@Test
+	public void testGetContenutoOrdinatoPerNomeDueElementi() {
+		b.addAttrezzo(lanterna);
+		b.addAttrezzo(coltello);
+		ComparatorePerNome comp = new ComparatorePerNome();
+		SortedSet<Attrezzo> tree = new TreeSet<>(comp);
+		tree.add(lanterna);
+		tree.add(coltello);
+		assertEquals(tree,b.getContenutoOrdinatoPerNome());
+	}
+	
+	@Test
+	public void testGetContenutoOrdinatoPerNomeTreElementi() {
+		b.addAttrezzo(lanterna);
+		b.addAttrezzo(coltello);
+		b.addAttrezzo(bussola);
+		ComparatorePerNome comp = new ComparatorePerNome();
+		SortedSet<Attrezzo> tree = new TreeSet<>(comp);
+		tree.add(lanterna);
+		tree.add(coltello);
+		tree.add(bussola);
+		assertEquals(tree,b.getContenutoOrdinatoPerNome());
+	}
+	
+	@Test
+	public void testGetContenutoRaggruppatoPerPesoDuePesiDiversi() {
+		b.addAttrezzo(lanterna);
+		b.addAttrezzo(bussola);
+		Map<Integer,Set<Attrezzo>> mappa = new HashMap<>();
+		Set<Attrezzo> pesoUno = new HashSet<>();
+		pesoUno.add(bussola);
+		Set<Attrezzo> pesoDue = new HashSet<>();
+		pesoDue.add(lanterna);
+		mappa.put(1, pesoUno);
+		mappa.put(2, pesoDue);
+		assertEquals(mappa,b.getContenutoRaggruppatoPerPeso());
+		
+	}
+	
+	@Test
+	public void testGetContenutoRaggruppatoPerPesoDuePesoUguale() {
+		b.addAttrezzo(zaino);
+		b.addAttrezzo(bussola);
+		Map<Integer,Set<Attrezzo>> mappa = new HashMap<>();
+		Set<Attrezzo> pesoUno = new HashSet<>();
+		pesoUno.add(zaino);
+		pesoUno.add(bussola);
+		mappa.put(1, pesoUno);
+		assertEquals(mappa,b.getContenutoRaggruppatoPerPeso());
+	}
+	
+	@Test
+	public void testGetContenutoRaggruppatoPerPesoDueUgualiUnoDiverso() {
+		b.addAttrezzo(zaino);
+		b.addAttrezzo(bussola);
+		b.addAttrezzo(lanterna);
+		Map<Integer,Set<Attrezzo>> mappa = new HashMap<>();
+		Set<Attrezzo> pesoUno = new HashSet<>();
+		pesoUno.add(zaino);
+		pesoUno.add(bussola);
+		Set<Attrezzo> pesoDue = new HashSet<>();
+		pesoDue.add(lanterna);
+		mappa.put(1, pesoUno);
+		mappa.put(2, pesoDue);
+		assertEquals(mappa,b.getContenutoRaggruppatoPerPeso());
+		
+	}
+	
+	@Test
+	public void testGetSortedOrdinatoPerPesoDuePesiDiversi() {
+		b.addAttrezzo(lanterna);
+		b.addAttrezzo(bussola);
+		ComparatorePerPeso comp = new ComparatorePerPeso();
+		SortedSet<Attrezzo> tree = new TreeSet<>(comp);
+		tree.add(bussola);
+		tree.add(lanterna);
+		assertEquals(tree,b.getSortedOrdinatoPerPeso());
+		
+	}
+	
+	@Test
+	public void testGetSortedOrdinatoPerPesoDuePesiUguali() {
+		b.addAttrezzo(zaino);
+		b.addAttrezzo(bussola);
+		ComparatorePerPeso comp = new ComparatorePerPeso();
+		SortedSet<Attrezzo> tree = new TreeSet<>(comp);
+		tree.add(zaino);
+		tree.add(bussola);
+		assertEquals(tree,b.getSortedOrdinatoPerPeso());
+	}
+	
+	@Test
+	public void testGetSortedOrdinatoPerPesoDuePesiUgualiUnoDiverso() {
+		b.addAttrezzo(spada);
+		b.addAttrezzo(zaino);
+		b.addAttrezzo(bussola);
+		ComparatorePerPeso comp = new ComparatorePerPeso();
+		SortedSet<Attrezzo> tree = new TreeSet<>(comp);
+		tree.add(zaino);
+		tree.add(bussola);
+		tree.add(spada);
+		assertEquals(tree,b.getSortedOrdinatoPerPeso());
 	}
 
 }
